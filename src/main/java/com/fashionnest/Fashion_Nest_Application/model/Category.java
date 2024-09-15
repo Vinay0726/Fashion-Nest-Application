@@ -19,7 +19,7 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotNull
+    @NotNull(message = "Category name must not be null")
     @Size(max = 50)
     private String name;
 

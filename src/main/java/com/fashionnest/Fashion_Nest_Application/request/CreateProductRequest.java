@@ -16,7 +16,7 @@ import java.util.Set;
 public class CreateProductRequest {
 
     private String title;
-    private String Description;
+    private String description;
     private int price;
     private int discountedPrice;
     private int discountPercent;
@@ -28,6 +28,7 @@ public class CreateProductRequest {
 
     private String imageUrl;
 
+    //men/clothing/mens_shirt
     private String topLevelCategory;
     private String secondLevelCategory;
     private String thirdLevelCategory;

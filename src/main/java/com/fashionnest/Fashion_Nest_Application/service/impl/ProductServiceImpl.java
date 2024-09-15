@@ -8,6 +8,7 @@ import com.fashionnest.Fashion_Nest_Application.repository.ProductRepository;
 import com.fashionnest.Fashion_Nest_Application.request.CreateProductRequest;
 import com.fashionnest.Fashion_Nest_Application.service.ProductService;
 import com.fashionnest.Fashion_Nest_Application.service.UserService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -31,6 +32,7 @@ public class ProductServiceImpl implements ProductService {
     private CategoryRepository categoryRepository;
 
     @Override
+    @Transactional
     public Product createProduct(CreateProductRequest req) {
         Category topLevel=categoryRepository.findByName(req.getTopLevelCategory());
         if(topLevel==null){
@@ -147,5 +149,10 @@ public class ProductServiceImpl implements ProductService {
         Page<Product> filteredProducts=new PageImpl<>(pageContent,pageable,products.size());
 
         return filteredProducts;
+    }
+
+    @Override
+    public List<Product> findAllProducts() {
+        return productRepository.findAll();
     }
 }

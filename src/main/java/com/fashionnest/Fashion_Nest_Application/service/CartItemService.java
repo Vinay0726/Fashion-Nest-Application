@@ -5,6 +5,7 @@ import com.fashionnest.Fashion_Nest_Application.exception.UserException;
 import com.fashionnest.Fashion_Nest_Application.model.Cart;
 import com.fashionnest.Fashion_Nest_Application.model.CartItem;
 import com.fashionnest.Fashion_Nest_Application.model.Product;
+import com.fashionnest.Fashion_Nest_Application.response.ApiResponse;
 
 public interface CartItemService {
 
@@ -14,7 +15,7 @@ public interface CartItemService {
 
     public CartItem isCartItemExist(Cart cart, Product product, String size,Long userId);
 
-    public void removeCardItem(Long userId,Long cardItemId)throws CartItemException, UserException;
+    public ApiResponse removeCardItem(Long userId, Long cardItemId)throws CartItemException, UserException;
 
     public CartItem findCartItemById(Long cardItemId)throws CartItemException;
 

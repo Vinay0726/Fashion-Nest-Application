@@ -8,6 +8,7 @@ import com.fashionnest.Fashion_Nest_Application.model.Product;
 import com.fashionnest.Fashion_Nest_Application.model.User;
 import com.fashionnest.Fashion_Nest_Application.repository.CardItemRepository;
 import com.fashionnest.Fashion_Nest_Application.repository.CartRepository;
+import com.fashionnest.Fashion_Nest_Application.response.ApiResponse;
 import com.fashionnest.Fashion_Nest_Application.service.CartItemService;
 import com.fashionnest.Fashion_Nest_Application.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +62,7 @@ public class CartItemServiceImpl implements CartItemService {
     }
 
     @Override
-    public void removeCardItem(Long userId, Long cardItemId) throws CartItemException, UserException {
+    public ApiResponse removeCardItem(Long userId, Long cardItemId) throws CartItemException, UserException {
 
         CartItem cartItem=findCartItemById(cardItemId);
         User user=userService.findUserBYId(cartItem.getUserId());
@@ -74,6 +75,7 @@ public class CartItemServiceImpl implements CartItemService {
         else {
             throw new UserException(("you can't remove another users item"));
         }
+        return null;
     }
 
     @Override

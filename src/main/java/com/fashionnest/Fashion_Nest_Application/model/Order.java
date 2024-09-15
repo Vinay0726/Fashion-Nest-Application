@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "orders")  // Renamed from 'order' to 'orders'
 @Getter
 @Setter
 @AllArgsConstructor
@@ -25,29 +26,37 @@ public class Order {
     private String orderId;
 
     @ManyToOne
+    @JoinColumn(name = "user_id")  // Explicitly specify the foreign key column
     private User user;
 
-    @OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
-    private List<OrderItem> orderItems=new ArrayList<>();
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderItem> orderItems = new ArrayList<>();
 
     private LocalDateTime orderDate;
     private LocalDateTime deliveryDate;
 
     @OneToOne
+    @JoinColumn(name = "shipping_address_id")  // Explicitly specify the foreign key column
     private Address shippingAddress;
 
     @Embedded
-    private PaymentDetails paymentDetails=new PaymentDetails();
+    private PaymentDetails paymentDetails = new PaymentDetails();
 
+    @Column(name = "total_price")
     private double totalPrice;
 
+    @Column(name = "total_discounted_price")
     private Integer totalDiscountedPrice;
 
+    @Column(name = "discount")
     private Integer discount;
 
-    private String orderStatus ;
+    @Column(name = "order_status")
+    private String orderStatus;
 
+    @Column(name = "total_item")
     private int totalItem;
 
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 }

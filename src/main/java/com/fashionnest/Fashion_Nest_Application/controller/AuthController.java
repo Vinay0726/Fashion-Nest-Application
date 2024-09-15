@@ -2,10 +2,12 @@ package com.fashionnest.Fashion_Nest_Application.controller;
 
 import com.fashionnest.Fashion_Nest_Application.config.JwtProvider;
 import com.fashionnest.Fashion_Nest_Application.exception.UserException;
+import com.fashionnest.Fashion_Nest_Application.model.Cart;
 import com.fashionnest.Fashion_Nest_Application.model.User;
 import com.fashionnest.Fashion_Nest_Application.repository.UserRepository;
 import com.fashionnest.Fashion_Nest_Application.request.LoginRequest;
 import com.fashionnest.Fashion_Nest_Application.response.AuthResponse;
+import com.fashionnest.Fashion_Nest_Application.service.CartService;
 import com.fashionnest.Fashion_Nest_Application.service.CustomUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,6 +40,9 @@ public class AuthController {
     @Autowired
     private CustomUserServiceImpl customUserService;
 
+    @Autowired
+    private CartService cartService;
+
 //    for Create  Account
     @PostMapping("/signup")
     public ResponseEntity<AuthResponse>createUserHandler(@RequestBody User user)throws UserException{
@@ -58,6 +63,7 @@ public class AuthController {
 
     User savedUser=userRepository.save(createdUser);
 
+    Cart cart=cartService.createCart(savedUser);
     Authentication authentication=new UsernamePasswordAuthenticationToken(savedUser.getEmail(),savedUser.getPassword());
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
