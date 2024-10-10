@@ -3,6 +3,7 @@ package com.fashionnest.Fashion_Nest_Application.controller;
 import com.fashionnest.Fashion_Nest_Application.exception.CartItemException;
 import com.fashionnest.Fashion_Nest_Application.exception.ProductException;
 import com.fashionnest.Fashion_Nest_Application.exception.UserException;
+import com.fashionnest.Fashion_Nest_Application.model.CartItem;
 import com.fashionnest.Fashion_Nest_Application.model.User;
 import com.fashionnest.Fashion_Nest_Application.request.AddItemRequest;
 import com.fashionnest.Fashion_Nest_Application.response.ApiResponse;
@@ -58,4 +59,22 @@ public class CartItemController {
         // Return the response
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
+
+    @PutMapping("/update/{id}")
+    @Operation(description = "Update item in the cart")
+    public ResponseEntity<CartItem> updateCartItem(
+            @PathVariable("id") Long id,
+            @RequestBody CartItem cartItem,
+            @RequestHeader("Authorization") String jwt) throws CartItemException, UserException {
+
+        // Find the user from the JWT
+        User user = userService.findUserProfileByJwt(jwt);
+
+        // Update the cart item by calling the service method
+        CartItem updatedItem = cartItemService.updateCartItem(user.getId(), id, cartItem);
+
+        // Return the updated cart item in the response
+        return new ResponseEntity<>(updatedItem, HttpStatus.OK);
+    }
+
 }

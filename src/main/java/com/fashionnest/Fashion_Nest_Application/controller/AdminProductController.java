@@ -28,11 +28,15 @@ public class AdminProductController {
 
     @DeleteMapping("/{productId}/delete")
     public ResponseEntity<ApiResponse> deleteProduct(@PathVariable Long productId) throws ProductException {
-
+        // Call service to delete product
         productService.deleteProduct(productId);
+
+        // Create a response
         ApiResponse res = new ApiResponse();
-        res.setMessage("product deleted successfully");
+        res.setMessage("Product deleted successfully");
         res.setStatus(true);
+
+        // Return the response with status OK
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 

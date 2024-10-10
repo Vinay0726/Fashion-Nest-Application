@@ -23,4 +23,10 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
                                         @Param("maxPrice") Integer maxPrice,
                                         @Param("minDiscount") Integer minDiscount,
                                         @Param("sort") String sort);
+
+
+    // Using native SQL query
+    @Query(value = "SELECT * FROM products WHERE category = :category", nativeQuery = true)
+    List<Product> findByCategory(@Param("category") String category);
+
 }

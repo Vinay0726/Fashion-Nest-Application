@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface CardItemRepository extends JpaRepository<CartItem,Long> {
 
@@ -16,4 +18,6 @@ public interface CardItemRepository extends JpaRepository<CartItem,Long> {
                                     @Param("product") Product product,
                                     @Param("size") String size,
                                     @Param("userId") Long userId);
+
+   public void deleteByProductId(Long productId);
 }

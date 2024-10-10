@@ -12,7 +12,7 @@ public interface ProductService {
 
     public Product createProduct(CreateProductRequest req);
 
-    public String deleteProduct(Long productId)throws ProductException;
+    public String deleteProduct(Long productId) throws ProductException;
 
     public Product updateProduct(Long productId,Product req)throws ProductException;
 

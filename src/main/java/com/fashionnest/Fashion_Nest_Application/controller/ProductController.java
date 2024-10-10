@@ -2,6 +2,8 @@ package com.fashionnest.Fashion_Nest_Application.controller;
 
 import com.fashionnest.Fashion_Nest_Application.exception.ProductException;
 import com.fashionnest.Fashion_Nest_Application.model.Product;
+import com.fashionnest.Fashion_Nest_Application.model.User;
+import com.fashionnest.Fashion_Nest_Application.repository.ProductRepository;
 import com.fashionnest.Fashion_Nest_Application.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,19 +20,28 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+
     @GetMapping("/products")
-    public ResponseEntity<Page<Product>> findProductByCategoryHandler(@RequestParam String category,
-                                                                      @RequestParam List<String> color, @RequestParam List<String> size, @RequestParam Integer minPrice,
-                                                                      @RequestParam Integer maxPrice, @RequestParam Integer minDiscount, @RequestParam String sort,
-                                                                      @RequestParam String stock, @RequestParam Integer pageNumber, @RequestParam Integer pageSize) {
+    public ResponseEntity<Page<Product>> findProductByCategoryHandler(
+            @RequestParam String category,
+            @RequestParam(required = false) List<String> color,
+            @RequestParam(required = false) List<String> size,
+            @RequestParam(required = false) Integer minPrice,
+            @RequestParam(required = false) Integer maxPrice,
+            @RequestParam(required = false) Integer minDiscount,
+            @RequestParam(required = false) String sort,
+            @RequestParam(required = false) String stock,
+            @RequestParam(defaultValue = "0") Integer pageNumber,
+            @RequestParam(defaultValue = "10") Integer pageSize) {
 
         Page<Product> res = productService.getAllProduct(
                 category, color, size, minPrice, maxPrice,
                 minDiscount, sort, stock, pageNumber, pageSize);
 
         System.out.println("completed products");
-        return new ResponseEntity<>(res, HttpStatus.ACCEPTED);
+        return new ResponseEntity<Page<Product>>(res, HttpStatus.ACCEPTED);
     }
+
 
     @GetMapping("/products/id/{productId}")
     public ResponseEntity<Product> findProductByIdHandler(@PathVariable Long productId) throws ProductException {
@@ -39,6 +50,8 @@ public class ProductController {
 
         return new ResponseEntity<Product>(product,HttpStatus.ACCEPTED);
     }
+
+
 
 //    @GetMapping("/products/search")
 //    public ResponseEntity<List<Product>> searchProductHandler(@RequestParam String q){

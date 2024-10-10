@@ -10,4 +10,6 @@ public interface UserService {
 
     public User findUserProfileByJwt(String jwt) throws UserException;
 
+
+   public User findUserById(Long userId)throws UserException ;
 }

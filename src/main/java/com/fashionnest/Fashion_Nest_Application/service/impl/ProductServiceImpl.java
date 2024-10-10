@@ -3,6 +3,7 @@ package com.fashionnest.Fashion_Nest_Application.service.impl;
 import com.fashionnest.Fashion_Nest_Application.exception.ProductException;
 import com.fashionnest.Fashion_Nest_Application.model.Category;
 import com.fashionnest.Fashion_Nest_Application.model.Product;
+import com.fashionnest.Fashion_Nest_Application.repository.CardItemRepository;
 import com.fashionnest.Fashion_Nest_Application.repository.CategoryRepository;
 import com.fashionnest.Fashion_Nest_Application.repository.ProductRepository;
 import com.fashionnest.Fashion_Nest_Application.request.CreateProductRequest;
@@ -28,6 +29,9 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
     @Autowired
     private UserService userService;
+    @Autowired
+    private CardItemRepository cartItemRepository;
+
     @Autowired
     private CategoryRepository categoryRepository;
 
@@ -87,9 +91,9 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public String deleteProduct(Long productId) throws ProductException {
 
-      Product product=findProductById(productId);
-      product.getSizes().clear();
-      productRepository.delete(product);
+        Product product=findProductById(productId);
+        product.getSizes().clear();
+        productRepository.delete(product);
         return "Product Deleted Successfully";
     }
 
@@ -116,8 +120,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> findProductByCategory(String category) {
 
-
-        return List.of();
+    return   productRepository.findByCategory(category);
     }
 
     @Override
