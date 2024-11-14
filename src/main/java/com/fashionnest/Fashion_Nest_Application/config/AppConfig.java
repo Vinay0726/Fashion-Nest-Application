@@ -42,7 +42,7 @@ public class AppConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         // Allow specific origins (front-end URLs)
-        corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:5173", "http://localhost:4200"));
+        corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:5173", "http://localhost:4200","https://fashionnestt.netlify.app/"));
         // Allow all HTTP methods
         corsConfiguration.setAllowedMethods(Collections.singletonList("*"));
         // Allow credentials (like cookies or authorization headers)
