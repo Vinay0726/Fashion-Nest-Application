@@ -24,6 +24,7 @@ public class AppConfig {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests(Authorize -> Authorize
+                        .requestMatchers("/api/admin/products/all").permitAll() // Public access to /all
                         .requestMatchers("/api/users/{id}").permitAll()
                         .requestMatchers("/api/**").authenticated()
                         .anyRequest().permitAll()
